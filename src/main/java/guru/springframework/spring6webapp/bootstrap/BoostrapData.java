@@ -35,7 +35,6 @@ public class BoostrapData implements CommandLineRunner {
         Book ddd = new Book();
         ddd.setTitle("Domain Driven Design");
         ddd.setIsbn("123456");
-        ddd.getPublishers().add(pub1Saved);
         Book dddSaved = bookRepository.save(ddd);
 
         Author eric = new Author();
@@ -54,7 +53,6 @@ public class BoostrapData implements CommandLineRunner {
         Book noEJB = new Book();
         noEJB.setTitle("J2EE Development without EJB");
         noEJB.setIsbn("54757585");
-        noEJB.getPublishers().add(pub2Saved);
         Book noEJBSaved = bookRepository.save(noEJB);
 
         Author rod = new Author();

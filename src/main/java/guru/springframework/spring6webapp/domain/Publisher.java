@@ -18,9 +18,6 @@ public class Publisher {
     private String state;
     private String zip;
 
-    @ManyToMany
-    private Set<Book> books = new HashSet<>();
-
     public Long getId() {
         return id;
     }
@@ -69,14 +66,6 @@ public class Publisher {
         this.zip = zip;
     }
 
-    public Set<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(Set<Book> books) {
-        this.books = books;
-    }
-
     @Override
     public String toString() {
         return "Publisher{" +
@@ -86,7 +75,6 @@ public class Publisher {
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
                 ", zip='" + zip + '\'' +
-                ", books=" + books +
                 '}';
     }
 
