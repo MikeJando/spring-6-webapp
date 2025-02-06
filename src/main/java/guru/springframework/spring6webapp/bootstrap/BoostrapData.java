@@ -26,42 +26,55 @@ public class BoostrapData implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         Publisher pub1 = new Publisher();
+        pub1.setPublisherName("Publisher 1");
         pub1.setAddress("1234 Fake St");
         pub1.setCity("Chicago");
         pub1.setState("IL");
         pub1.setZip("60016");
         Publisher pub1Saved = publisherRepository.save(pub1);
 
-        Book ddd = new Book();
-        ddd.setTitle("Domain Driven Design");
-        ddd.setIsbn("123456");
-        ddd.setPublisher(pub1Saved);
-        Book dddSaved = bookRepository.save(ddd);
-
-        Author eric = new Author();
-        eric.setFirstName("Eric");
-        eric.setLastName("Evans");
-        eric.getBooks().add(dddSaved);
-        Author ericSaved = authorRepository.save(eric);
-
         Publisher pub2 = new Publisher();
+        pub2.setPublisherName("Publisher 2");
         pub2.setAddress("4567 Fake St");
         pub2.setCity("Miami");
         pub2.setState("Fl");
         pub2.setZip("41523");
         Publisher pub2Saved = publisherRepository.save(pub2);
 
+        Book ddd = new Book();
+        ddd.setTitle("Domain Driven Design");
+        ddd.setIsbn("123456");
+        Book dddSaved = bookRepository.save(ddd);
+
         Book noEJB = new Book();
         noEJB.setTitle("J2EE Development without EJB");
         noEJB.setIsbn("54757585");
-        noEJB.setPublisher(pub1Saved);
         Book noEJBSaved = bookRepository.save(noEJB);
+
+        Author eric = new Author();
+        eric.setFirstName("Eric");
+        eric.setLastName("Evans");
+        Author ericSaved = authorRepository.save(eric);
 
         Author rod = new Author();
         rod.setFirstName("Rod");
         rod.setLastName("Johnson");
-        rod.getBooks().add(noEJBSaved);
         Author rodSaved = authorRepository.save(rod);
+
+
+        //Creating the relationships
+        ericSaved.getBooks().add(dddSaved);
+        rodSaved.getBooks().add(noEJBSaved);
+        dddSaved.getAuthors().add(ericSaved);
+        noEJBSaved.getAuthors().add(rodSaved);
+        dddSaved.setPublisher(pub1Saved);
+        noEJBSaved.setPublisher(pub2Saved);
+
+        authorRepository.save(ericSaved);
+        authorRepository.save(rodSaved);
+        bookRepository.save(dddSaved);
+        bookRepository.save(noEJBSaved);
+
 
         System.out.println("In Bootstrap");
         System.out.println("Author Count: " + authorRepository.count());
